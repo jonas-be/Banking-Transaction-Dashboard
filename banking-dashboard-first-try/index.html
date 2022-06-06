@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Random User Generator</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <button v-on:click="getData()">fetch data</button>
+
+        <div>
+
+            <div class="graph">
+                <div class="graph-column">
+                    <div class="graph-item" :style="`height: ${height1}%;`"></div>
+                    <div>{{date1}}</div>
+                </div>
+
+                <div class="graph-column">
+                    <div class="graph-item" :style="`height: ${height2}%;`"></div>
+                    <div>{{date2}}</div>
+                </div>
+
+                <div class="graph-column">
+                    <div class="graph-item" :style="`height: ${height3}%;`"></div>
+                    <div>{{date3}}</div>
+                </div>
+
+                <div class="graph-column">
+                    <div class="graph-item" :style="`height: ${height4}%;`"></div>
+                    <div>{{date4}}</div>
+                </div>
+
+                <div class="graph-column">
+                    <div class="graph-item" :style="`height: ${height5}%;`"></div>
+                    <div>{{date5}}</div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <input type="file" />
+
+
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="app.js"></script>
+
+
+
+</body>
+
+</html>
