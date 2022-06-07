@@ -16,7 +16,7 @@
 
         <button v-on:click="getData()">fetch data</button>
 
-        <div>
+        <div> 
 
             <div class="graph">
                 <div class="graph-column">
@@ -48,11 +48,17 @@
 
 
 
-        <input type="file" />
+        <form id="uploadform" method="post" enctype="multipart/form-data">	
+            <input id="files" type="file" name="files[]" multiple>
+            <input type="submit" value="Upload File" name="submit">
+            <p v-bind:class="`${uploadStyle}`">{{uploadStatus}}</p>
+        </form>
 
+        <div id="list"></div>
 
-
+        
     </div>
+
 
     <script src="https://unpkg.com/vue@3"></script>
     <script src="app.js"></script>

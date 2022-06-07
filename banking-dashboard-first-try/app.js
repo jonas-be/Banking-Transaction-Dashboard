@@ -1,11 +1,8 @@
 const app = Vue.createApp({
     data() {
         return {
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'john@gmail.com',
-            gender: 'male',
-            picture: 'https://randomuser.me/api/portraits/men/10.jpg',
+            uploadStatus: '🟡 Pending',
+            uploadStyle: 'yellow',
             ipAddress: 'Ip is loading...',
             date1: 'Date 1',
             date2: 'Date 2',
@@ -41,11 +38,11 @@ const app = Vue.createApp({
             // setTimeout(function () {
             //     console.log('now');
 
-                this.height1 = results[0].value
-                this.height2 = results[1].value
-                this.height3 = results[2].value
-                this.height4 = results[3].value
-                this.height5 = results[4].value
+            this.height1 = results[0].value
+            this.height2 = results[1].value
+            this.height3 = results[2].value
+            this.height4 = results[3].value
+            this.height5 = results[4].value
             // }, 2000);
 
             console.log(results);
@@ -53,15 +50,48 @@ const app = Vue.createApp({
 
         },
 
-        async getIpAddress() {
-            const res = await fetch('https://api.ipify.org?format=json')
-            const { results } = await res.json()
-
-            console.log(results);
-
-            this.ipAddress = results[0].ip
-        }
     }
 })
 
+
 app.mount('#app')
+
+
+const form = document.querySelector("#uploadform");
+
+form.addEventListener("submit", function (evt) {
+    evt.preventDefault();
+    const files = document.querySelector('[type=file]').files;
+    const file = files[0]
+
+    // nur TXT-Dateien
+    if (!file.type.match('text/csv')) {
+        // Not working because out of vue.js!
+        this.uploadStatus = 'Failed: Please use a CSV file!';
+        this.uploadStyle = 'red';
+        console.log('Failed: Please use a CSV file!');
+
+        return;
+    }
+
+    console.log(file);
+
+
+    const reader = new FileReader()
+    reader.onload = handleFileLoad;
+    reader.readAsText(file);
+});
+
+function handleFileLoad(event) {
+    fetch('http://localhost:8080/upload', {
+        method: "POST",
+        body: event.target.result,
+    }).then((response) => {
+        console.log(response);
+
+        if (response.status === 200) {
+            this.uploadStatus = 'Success';
+            this.uploadStyle = 'green';
+        }
+    });
+}

@@ -1,4 +1,4 @@
-package de.jonasbe.diaryapi.database
+package de.jonasbe.bankingtransactionapi.database
 
 import java.util.*
 

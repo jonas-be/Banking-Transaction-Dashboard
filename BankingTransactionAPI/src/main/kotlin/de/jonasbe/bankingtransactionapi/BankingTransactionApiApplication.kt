@@ -1,11 +1,11 @@
-package de.jonasbe.diaryapi
+package de.jonasbe.bankingtransactionapi
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class DiaryApiApplication
+class BankingTransactionApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<DiaryApiApplication>(*args)
+    runApplication<BankingTransactionApiApplication>(*args)
 }
