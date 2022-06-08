@@ -32,22 +32,24 @@ const app = Vue.createApp({
         },
 
         async getData() {
-            const response = await fetch('http://192.168.1.199:8080/data');
+            const response = await fetch('http://localhost:8080/data');
             const results = await response.json();
 
-            // setTimeout(function () {
-            //     console.log('now');
-
-            this.height1 = results[0].value
-            this.height2 = results[1].value
-            this.height3 = results[2].value
-            this.height4 = results[3].value
-            this.height5 = results[4].value
-            // }, 2000);
+            document.getElementById("graph-item-1").animate({'height': results[0].value + '%'}, 501);
+            document.getElementById("graph-item-2").animate({'height': results[1].value + '%'}, 501);
+            document.getElementById("graph-item-3").animate({'height': results[2].value + '%'}, 501);
+            document.getElementById("graph-item-4").animate({'height': results[3].value + '%'}, 501);
+            document.getElementById("graph-item-5").animate({'height': results[4].value + '%'}, 501);
+            setTimeout(function() {
+                document.getElementById("graph-item-1").style.setProperty('height', results[0].value + '%')
+                document.getElementById("graph-item-2").style.setProperty('height', results[1].value + '%')
+                document.getElementById("graph-item-3").style.setProperty('height', results[2].value + '%')
+                document.getElementById("graph-item-4").style.setProperty('height', results[3].value + '%')
+                document.getElementById("graph-item-5").style.setProperty('height', results[4].value + '%')
+            }, 500);
 
             console.log(results);
             console.log(results[0]);
-
         },
 
     }

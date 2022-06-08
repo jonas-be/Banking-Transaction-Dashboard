@@ -17,30 +17,29 @@
         <button v-on:click="getData()">fetch data</button>
 
         <div> 
-
             <div class="graph">
                 <div class="graph-column">
-                    <div class="graph-item" :style="`height: ${height1}%;`"></div>
+                    <div id="graph-item-1" class="graph-item"></div>
                     <div>{{date1}}</div>
                 </div>
 
                 <div class="graph-column">
-                    <div class="graph-item" :style="`height: ${height2}%;`"></div>
+                    <div id="graph-item-2" class="graph-item"></div>
                     <div>{{date2}}</div>
                 </div>
 
                 <div class="graph-column">
-                    <div class="graph-item" :style="`height: ${height3}%;`"></div>
+                    <div id="graph-item-3" class="graph-item"></div>
                     <div>{{date3}}</div>
                 </div>
 
                 <div class="graph-column">
-                    <div class="graph-item" :style="`height: ${height4}%;`"></div>
+                    <div id="graph-item-4" class="graph-item"></div>
                     <div>{{date4}}</div>
                 </div>
 
                 <div class="graph-column">
-                    <div class="graph-item" :style="`height: ${height5}%;`"></div>
+                    <div id="graph-item-5" class="graph-item"></div>
                     <div>{{date5}}</div>
                 </div>
             </div>
