@@ -1,5 +1,6 @@
 package de.jonasbe.bankingtransactionapi.api
 
+import de.jonasbe.bankingtransactionapi.database.CSVDataObject
 import de.jonasbe.bankingtransactionapi.database.Data
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -26,6 +27,12 @@ class API {
     @PostMapping("/upload")
     fun getTest(@RequestBody fileContent: String) {
         println("uploaded: \n $fileContent")
+        println("Start parsing...")
+        val csvData = CSVDataObject.getByCSV(fileContent)
+
+        println(csvData)
+
+
     }
 
 

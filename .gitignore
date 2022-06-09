@@ -39,3 +39,6 @@ out/
 /DiaryAPI/gradle/
 /DiaryAPI/gradlew
 /DiaryAPI/gradlew.bat
+/BankingTransactionAPI/gradle/wrapper/gradle-wrapper.jar
+/BankingTransactionAPI/gradlew
+/BankingTransactionAPI/gradlew.bat
