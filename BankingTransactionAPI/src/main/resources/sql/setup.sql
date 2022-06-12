@@ -1,17 +1,28 @@
 -- Create --
 
-CREATE SCHEMA IF NOT EXISTS diary_api;
-
+CREATE SCHEMA IF NOT EXISTS banking_transaction_api;
 CREATE TABLE
     IF NOT EXISTS
-    diary_api.diary(
+    banking_transaction_api.transactions(
                        id    SERIAL PRIMARY KEY,
-                       value INT
+                       descriptionOrderAccount VARCHAR,
+                       ibanOrderAccount VARCHAR,
+                       bicOrderAccount VARCHAR,
+                       bankNameOrderAccount VARCHAR,
+                       bookingDay DATE,
+                       valueDate DATE,
+                       paymentPartyName VARCHAR,
+                       paymentPartyIBAN VARCHAR,
+                       paymentPartyBIC VARCHAR,
+                       bookingText VARCHAR,
+                       usageText VARCHAR,
+                       amount NUMERIC,
+                       currency VARCHAR,
+                       creditBalanceAfterBooking NUMERIC,
+                       notice VARCHAR,
+                       category VARCHAR,
+                       taxRelevant VARCHAR,
+                       creditorID VARCHAR,
+                       mandateReference VARCHAR
 );
 
-
--- Roll back --
-
-DROP SCHEMA IF EXISTS diary_api;
-
-DROP TABLE IF EXISTS diary_api.diary;

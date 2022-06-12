@@ -1,13 +1,19 @@
 package de.jonasbe.bankingtransactionapi.api
 
-import de.jonasbe.bankingtransactionapi.database.CSVDataObject
-import de.jonasbe.bankingtransactionapi.database.Data
+import de.jonasbe.bankingtransactionapi.database.DatabaseProcessor
+import de.jonasbe.bankingtransactionapi.model.CSVObject
+import de.jonasbe.bankingtransactionapi.model.Data
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController()
 @RequestMapping
-class API {
+class API(
+    @Autowired
+    val databaseProcessor: DatabaseProcessor
+) {
+
 
     @CrossOrigin(origins = ["*"])
     @GetMapping("/data")
@@ -25,15 +31,11 @@ class API {
 
     @CrossOrigin(origins = ["*"])
     @PostMapping("/upload")
-    fun getTest(@RequestBody fileContent: String) {
+    fun uploadCSV(@RequestBody fileContent: String) {
         println("uploaded: \n $fileContent")
         println("Start parsing...")
-        val csvData = CSVDataObject.getByCSV(fileContent)
 
-        println(csvData)
-
-
+        val csvData = CSVObject(fileContent)
+        csvData.importToDataBase(databaseProcessor)
     }
-
-
 }

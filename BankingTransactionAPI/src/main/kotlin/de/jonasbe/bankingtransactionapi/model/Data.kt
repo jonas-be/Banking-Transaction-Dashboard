@@ -1,4 +1,4 @@
-package de.jonasbe.bankingtransactionapi.database
+package de.jonasbe.bankingtransactionapi.model
 
 import java.util.*
 

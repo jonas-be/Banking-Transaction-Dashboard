@@ -1,0 +1,14 @@
+app:
+  db:
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: diaryapi
+    password: D14rYA9iDb
+    sql:
+      files:
+        setup: setup.sql
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    type:
