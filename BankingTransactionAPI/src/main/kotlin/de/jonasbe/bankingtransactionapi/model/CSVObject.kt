@@ -1,6 +1,7 @@
 package de.jonasbe.bankingtransactionapi.model
 
 import de.jonasbe.bankingtransactionapi.database.DatabaseProcessor
+import java.time.LocalDate
 import java.util.*
 
 class CSVObject(fileContent: String) {
@@ -52,8 +53,8 @@ class CSVObject(fileContent: String) {
         }
     }
 
-    private fun getDates(): List<Date> {
-        val list: MutableList<Date> = mutableListOf()
+    private fun getDates(): List<LocalDate> {
+        val list: MutableList<LocalDate> = mutableListOf()
         for (transaction in transactions) {
             if (!list.contains(transaction.bookingDay)) {
                 list.add(transaction.bookingDay!!)
@@ -62,7 +63,7 @@ class CSVObject(fileContent: String) {
         return list
     }
 
-    private fun getAllTransactionsByDate(date: Date): List<Transaction> {
+    private fun getAllTransactionsByDate(date: LocalDate): List<Transaction> {
         val list: MutableList<Transaction> = mutableListOf()
         for (transaction in transactions) {
             if (transaction.bookingDay == date) {

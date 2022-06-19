@@ -10,7 +10,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
-import java.util.*
+import java.time.LocalDate
 import javax.sql.DataSource
 import kotlin.io.path.Path
 
@@ -52,7 +52,7 @@ class DatabaseProcessor(
         return jdbc.query("SELECT * FROM banking_transaction_api.transactions;", Mapper())
     }
 
-    fun getAllTransactionsByDate(date: Date): List<Transaction> {
+    fun getAllTransactionsByDate(date: LocalDate): List<Transaction> {
         return jdbc.query(
             "SELECT * FROM banking_transaction_api.transactions " +
                     "WHERE bookingday = '${SimpleDateFormat("yyyy-MM-dd").format(date)}';",
@@ -60,7 +60,7 @@ class DatabaseProcessor(
         )
     }
 
-    fun deleteWhereBookingdate(date: Date) {
+    fun deleteWhereBookingdate(date: LocalDate) {
         jdbc.update(
             "DELETE FROM banking_transaction_api.transactions " +
                     "WHERE bookingday = '${SimpleDateFormat("yyyy-MM-dd").format(date)}';"

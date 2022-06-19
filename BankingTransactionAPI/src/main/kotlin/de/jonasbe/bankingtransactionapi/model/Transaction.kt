@@ -1,10 +1,12 @@
 package de.jonasbe.bankingtransactionapi.model
 
 import lombok.Getter
+import lombok.ToString
 import java.math.BigDecimal
-import java.text.SimpleDateFormat
-import java.util.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+@ToString
 @Getter
 data class Transaction(
     val id: Int?,
@@ -12,21 +14,21 @@ data class Transaction(
     val ibanOrderAccount: String,
     val bicOrderAccount: String,
     val bankNameOrderAccount: String,
-    val bookingDay: Date?,
-    val valueDate: Date?,
+    val bookingDay: LocalDate,
+    val valueLocalDate: LocalDate,
     val paymentPartyName: String,
     val paymentPartyIBAN: String,
     val paymentPartyBIC: String,
     val bookingText: String,
     val usageText: String,
-    val amount: BigDecimal?,
+    val amount: BigDecimal,
     val currency: String,
-    val creditBalanceAfterBooking: BigDecimal?,
+    val creditBalanceAfterBooking: BigDecimal,
     val notice: String,
     val category: String,
     val taxRelevant: String,
     val creditorID: String,
-    val mandateReference: String
+    val manLocalDateReference: String
 ) {
 
     constructor(
@@ -35,7 +37,7 @@ data class Transaction(
         bicOrderAccount: String,
         bankNameOrderAccount: String,
         bookingDay: String,
-        valueDate: String,
+        valueLocalDate: String,
         paymentPartyName: String,
         paymentPartyIBAN: String,
         paymentPartyBIC: String,
@@ -48,15 +50,15 @@ data class Transaction(
         category: String,
         taxRelevant: String,
         creditorID: String,
-        mandateReference: String
+        manLocalDateReference: String
     ) : this(
         id = null,
         descriptionOrderAccount = descriptionOrderAccount,
         ibanOrderAccount = ibanOrderAccount,
         bicOrderAccount = bicOrderAccount,
         bankNameOrderAccount = bankNameOrderAccount,
-        bookingDay = SimpleDateFormat("dd.MM.yyyy").parse(bookingDay),
-        valueDate = SimpleDateFormat("dd.MM.yyyy").parse(valueDate),
+        bookingDay = LocalDate.parse(bookingDay, DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+        valueLocalDate = LocalDate.parse(valueLocalDate, DateTimeFormatter.ofPattern("dd.MM.yyyy")),
         paymentPartyName = paymentPartyName,
         paymentPartyIBAN = paymentPartyIBAN,
         paymentPartyBIC = paymentPartyBIC,
@@ -69,7 +71,7 @@ data class Transaction(
         category = category,
         taxRelevant = taxRelevant,
         creditorID = creditorID,
-        mandateReference = mandateReference
+        manLocalDateReference = manLocalDateReference
     ) {
     }
 
@@ -79,8 +81,8 @@ data class Transaction(
                 "'$ibanOrderAccount', " +
                 "'$bicOrderAccount', " +
                 "'$bankNameOrderAccount', " +
-                "'${SimpleDateFormat("yyyy-MM-dd").format(bookingDay)}', " +
-                "'${SimpleDateFormat("yyyy-MM-dd").format(valueDate)}', " +
+                "'${DateTimeFormatter.ofPattern("yyyy-MM-dd").format(bookingDay)}', " +
+                "'${DateTimeFormatter.ofPattern("yyyy-MM-dd").format(valueLocalDate)}', " +
                 "'$paymentPartyName', " +
                 "'$paymentPartyIBAN', " +
                 "'$paymentPartyBIC', " +
@@ -93,6 +95,6 @@ data class Transaction(
                 "'$category', " +
                 "'$taxRelevant', " +
                 "'$creditorID', " +
-                "'$mandateReference'"
+                "'$manLocalDateReference'"
     }
 }
