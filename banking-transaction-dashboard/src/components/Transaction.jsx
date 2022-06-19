@@ -2,7 +2,7 @@ function Transaction({ transaction }) {
 
   return (
     <>
-      <div className="flex justify-between border-none bg-white p-4">
+      <div className="flex justify-between border-none p-4 z-1">
         <div className="pr-10	">
           <h1 className='text-left text-xl font-semibold '>{transaction.paymentPartyName}</h1>
           <h2 className='text-left text-lg font-semibold text-zinc-400'>{transaction.bookingDay}</h2>

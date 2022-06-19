@@ -2,21 +2,22 @@ import Transactions from "./Transactions"
 
 function DashboardOne({ transactions }) {
     return (
-        <div className="p-3">
-            <div className="flex flex-row  border-solid border-2 border-gray-200 rounded-xl bg-white h-3/4-screen drop-shadow-xl	">
-                <Transactions transactions={transactions} />
+        <div className="p-3 lg:flex justify-center">
+            <div className="flex sm:flex-col-reverse md:flex-row  md:h-3/4-screen  lg:w-90-screen   border-solid border-2 border-gray-200 rounded-3xl   bg-white drop-shadow-xl  overflow-hidden">
 
-                <div className="w-1 bg-gray-200"></div>
+                <Transactions transactions={transactions} style="sm: h-3/4-screen" />
 
-                <div className="py-16 px-12 w-1/2">
+                <div className="sm:w-full md:w-1 sm:h-0.5 md:h-auto bg-gray-200"></div>
+
+                <div className="py-16 px-12 w-full overflow-y-auto">
                     <h2 className="text-left text-xl font-semibold">Current</h2>
-                    <h1 className="text-left text-6xl font-bold py-2">8,000 €</h1>
+                    <h1 className="text-left text-5xl font-bold py-2">8,000 €</h1>
                     <h3 className="text-left text-lg font-semibold text-zinc-400">02.05.2022</h3>
-                    
-                    
+
+
                     <br />
                     <br />
-                    
+
 
 
 
@@ -56,6 +57,8 @@ function DashboardOne({ transactions }) {
                     </div>
 
                 </div>
+
+                {/* <div className="md:w-2"></div> */}
 
             </div>
         </div>
