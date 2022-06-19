@@ -28,7 +28,7 @@ class API(
     @GetMapping("/dailyCreditBalance")
     fun getDailyCreditBalance(): List<TransactionDay> {
         /**
-         * Get Credit Balance at day start {
+          Get Credit Balance at day start {
 
              beforeBooking = after booking with amount calculate to before booking
 
