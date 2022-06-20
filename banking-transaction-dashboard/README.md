@@ -68,3 +68,52 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Test Data to Mock the UI
+```json
+
+[
+  {
+    id: 1,
+    paymentPartyName: "Arbeitgeber",
+    bookingDay: "29.04.2022",
+    amount: 1000,
+    creditBalanceAfterBooking: 1000
+  },
+  {
+    id: 2,
+    paymentPartyName: "Tester 1",
+    bookingDay: "01.05.2022",
+    amount: -23,
+    creditBalanceAfterBooking: 977
+  },
+  {
+    id: 3,
+    paymentPartyName: "Tester 2",
+    bookingDay: "02.05.2022",
+    amount: -10,
+    creditBalanceAfterBooking: 967
+  },
+  {
+    id: 4,
+    paymentPartyName: "Tester 1",
+    bookingDay: "07.05.2022",
+    amount: -50,
+    creditBalanceAfterBooking: 917
+  },
+  {
+    id: 5,
+    paymentPartyName: "Tester 3",
+    bookingDay: "19.05.2022",
+    amount: -110,
+    creditBalanceAfterBooking: 807
+  },
+  {
+    id: 6,
+    paymentPartyName: "Arbeitgeber",
+    bookingDay: "29.05.2022",
+    amount: 1000,
+    creditBalanceAfterBooking: 1807
+  }
+]
+```
