@@ -8,7 +8,7 @@ export default function ChartComponent({ transactions }) {
 
     return (
 
-        <ResponsiveContainer width="100%" aspect={3}>
+        <ResponsiveContainer width="100%" aspect={3} className="bg-">
             <LineChart
                 width={500}
                 height={300}
@@ -21,15 +21,11 @@ export default function ChartComponent({ transactions }) {
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="bookingDay"
-                    style={{
-                        fontWeight: 'normal',
-                        color: 'black'
-                    }}
-                />
-                <YAxis />
+                <XAxis dataKey="bookingDay" style={{fontWeight: 600, fill: 'black'}}/>
+                <YAxis style={{fontWeight: 600, fill: 'black'}} />
+
                 <Tooltip />
-                <Line type="monotone" dataKey="creditBalanceAfterBooking" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="creditBalanceAfterBooking" stroke="rgb(125, 211, 252)" strokeWidth={6} activeDot={{ r: 8 }} />
             </LineChart>
         </ResponsiveContainer>
     );
