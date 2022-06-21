@@ -53,17 +53,19 @@ class DatabaseProcessor(
     }
 
     fun getAllTransactionsByDate(date: LocalDate): List<Transaction> {
+        println(date)
         return jdbc.query(
             "SELECT * FROM banking_transaction_api.transactions " +
-                    "WHERE bookingday = '${SimpleDateFormat("yyyy-MM-dd").format(date)}';",
+                    "WHERE bookingday = '${date}';",
             Mapper()
         )
     }
 
     fun deleteWhereBookingdate(date: LocalDate) {
+        println(date)
         jdbc.update(
             "DELETE FROM banking_transaction_api.transactions " +
-                    "WHERE bookingday = '${SimpleDateFormat("yyyy-MM-dd").format(date)}';"
+                    "WHERE bookingday = '${date}';"
         )
     }
 
