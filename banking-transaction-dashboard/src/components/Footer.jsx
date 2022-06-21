@@ -1,4 +1,3 @@
-import Button from "./Button"
 import GitHubLogo from "../assets/GitHub-Mark-Light-120px-plus.png"
 
 function Header() {

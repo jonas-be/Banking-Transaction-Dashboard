@@ -1,80 +1,38 @@
-import { useState, useEffect } from "react"
-import { Line } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-  } from 'chart.js';
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-
-function ChartComponent({ transactions }) {
-
-    const dates = transactions.map((transaction) => transaction.bookingDay)
-    const blanaces = transactions.map((transaction) => transaction.creditBalanceAfterBooking)
-
-    // console.log(dates);
-    // console.log(blanaces);
-
-    const [chartData, setChartData] = useState({
-        datasets: []
-    })
-
-    const [chartOptions, setChartOptions] = useState({})
+import React, { PureComponent } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
-    useEffect(() => {
-        setChartOptions({
-            responsive: true,
-            plugins: {
-                legend: {
-                  position: 'top',
-                },
-                title: {
-                  display: true,
-                  text: 'Chart.js Line Chart',
-                },
-              },
-        })
-        setChartData({
-            labels: dates,
-            datasets: [
-                {
-                    id: 1,
-                    label: 'Credit Balnace',
-                    data: blanaces.reverse(),
-                    borderColor: "rgb(12, 45,342)",
-                },
-            ],
-        });
-    }, [])
+export default function ChartComponent({ transactions }) {
 
+    const data = transactions.reverse()
 
     return (
-        <div>
-            <h1>⬇️ Chart below ⬇️</h1>
 
+        <ResponsiveContainer width="100%" aspect={3}>
+            <LineChart
+                width={500}
+                height={300}
+                data={data}
+                margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                }}
+            >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="bookingDay"
+                    style={{
+                        fontWeight: 'normal',
+                        color: 'black'
+                    }}
+                />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="creditBalanceAfterBooking" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+        </ResponsiveContainer>
+    );
 
-            <Line
-                options={chartOptions}
-                data={chartData}
-            />
-
-        </div>
-    )
 }
 
-export default ChartComponent

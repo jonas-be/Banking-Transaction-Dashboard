@@ -7,13 +7,17 @@ import ChartComponent from "../components/ChartComponent"
 function MainSite() {
 
     const [transactions, setTransactions] = useState([])
+    const [dailyTransactions, setDailyTransactions] = useState([])
 
     useEffect(() => {
-      async function getTransactions() {
-        const data = await fetchTransactions()
-        setTransactions(data)
+      async function setUp() {
+        const transactionsData = await fetchTransactions()
+        setTransactions(transactionsData)
+
+        const dailyTransactionsData = await fetchDailyTransactions()
+        setDailyTransactions(transactionsData)
       }
-      getTransactions()
+      setUp()
     }, [])
   
     async function fetchTransactions() {
@@ -23,9 +27,17 @@ function MainSite() {
       return data;
     }
 
+    async function fetchDailyTransactions() {
+      const res = await fetch('http://localhost:8080/dailyCreditBalance')
+      const data = await res.json()
+  
+      return data;
+    }
+
     return (
         <>
             <Header />
+            <ChartComponent transactions={dailyTransactions}/>
             <DashboardOne transactions={transactions}/>
             <Footer />
 
