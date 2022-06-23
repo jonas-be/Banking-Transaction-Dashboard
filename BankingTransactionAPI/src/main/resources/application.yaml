@@ -1,17 +1,7 @@
-app:
-  db:
-    url: jdbc:sqlite:/home/jobender/Documents/Coding/Banking-Transaction-Dashboard/sql.db
-    driverClassName: org.sqlite.JDBC
-    #transactiondb
-    user: sa
-    #T4nSa3t1oNd8
-    password: sa
-    sql:
-      files:
-        setup: setup.sql
-
 spring:
   datasource:
-    url: jdbc:sqlite:/home/jobender/Documents/Coding/Banking-Transaction-Dashboard/sql.db
+    url: jdbc:sqlite
     driverClassName: org.sqlite.JDBC
-    type:
+  sql:
+    files:
+      setup: setup.sql

@@ -3,6 +3,8 @@ package de.jonasbe.bankingtransactionapi.database
 import de.jonasbe.bankingtransactionapi.model.Transaction
 import org.springframework.jdbc.core.RowMapper
 import java.sql.ResultSet
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class Mapper : RowMapper<Transaction> {
     override
@@ -13,8 +15,8 @@ class Mapper : RowMapper<Transaction> {
             resultSet.getString("ibanOrderAccount"),
             resultSet.getString("bicOrderAccount"),
             resultSet.getString("bankNameOrderAccount"),
-            resultSet.getDate("bookingDay").toLocalDate(),
-            resultSet.getDate("valueDate").toLocalDate(),
+            LocalDate.parse(resultSet.getString("bookingDay"), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+            LocalDate.parse(resultSet.getString("valueDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
             resultSet.getString("paymentPartyName"),
             resultSet.getString("paymentPartyIBAN"),
             resultSet.getString("paymentPartyBIC"),

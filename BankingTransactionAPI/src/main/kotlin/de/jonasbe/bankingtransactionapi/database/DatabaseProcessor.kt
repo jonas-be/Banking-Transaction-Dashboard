@@ -17,27 +17,40 @@ private const val sqlDirectory = "sql"
 
 @Component
 class DatabaseProcessor(
-    @Value("\${app.db.url}") val dbUrl: String,
-    @Value("\${app.db.user}") val dbUser: String,
-    @Value("\${app.db.password}") val dbPassword: String,
-    @Value("\${app.db.sql.files.setup}") val setupFile: String,
-    @Value("\${app.db.driverClassName}") val driverClassName: String
+    @Value("\${spring.datasource.url}") val dbUrl: String,
+    @Value("\${spring.datasource.driverClassName}") val driverClassName: String,
+    @Value("\${spring.sql.files.setup}") val setupFile: String
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
     lateinit var dataSource: DataSource
     lateinit var jdbc: JdbcTemplate
+    private lateinit var dbFilePath: String
 
     init {
+        createDataBaseFile()
         setUpDataSource()
         setUpSchemasAndTables()
+    }
+
+    fun createDataBaseFile() {
+        val basePath = File(this::class.java.protectionDomain.codeSource.location.toURI()).path
+        val dbFile = File(basePath, "transactions.db")
+        dbFilePath = dbFile.toString()
+        if (dbFile.exists()) {
+            logger.info("Database file already exists")
+            return
+        }
+        if (dbFile.createNewFile()) {
+            logger.info("Database file successfully created")
+            return
+        }
+        logger.error("Database file could not be created!")
     }
 
     fun setUpDataSource() {
         dataSource = DataSourceBuilder.create()
             .driverClassName(driverClassName)
-            .url(dbUrl)
-            .username(dbUser)
-            .password(dbPassword)
+            .url("$dbUrl:$dbFilePath")
             .build()
         jdbc = JdbcTemplate(dataSource)
     }
