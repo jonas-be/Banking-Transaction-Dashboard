@@ -1,9 +1,9 @@
 -- Create --
 
-CREATE SCHEMA IF NOT EXISTS banking_transaction_api;
+
 CREATE TABLE
     IF NOT EXISTS
-    banking_transaction_api.transactions(
+    main.transactions(
                        id    SERIAL PRIMARY KEY,
                        descriptionOrderAccount VARCHAR,
                        ibanOrderAccount VARCHAR,

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import javax.sql.DataSource
 import kotlin.io.path.Path
@@ -21,7 +20,8 @@ class DatabaseProcessor(
     @Value("\${app.db.url}") val dbUrl: String,
     @Value("\${app.db.user}") val dbUser: String,
     @Value("\${app.db.password}") val dbPassword: String,
-    @Value("\${app.db.sql.files.setup}") val setupFile: String
+    @Value("\${app.db.sql.files.setup}") val setupFile: String,
+    @Value("\${app.db.driverClassName}") val driverClassName: String
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
     lateinit var dataSource: DataSource
@@ -34,7 +34,7 @@ class DatabaseProcessor(
 
     fun setUpDataSource() {
         dataSource = DataSourceBuilder.create()
-            .driverClassName("org.postgresql.Driver")
+            .driverClassName(driverClassName)
             .url(dbUrl)
             .username(dbUser)
             .password(dbPassword)
@@ -49,13 +49,13 @@ class DatabaseProcessor(
     }
 
     fun getAllTransactions(): List<Transaction> {
-        return jdbc.query("SELECT * FROM banking_transaction_api.transactions;", Mapper())
+        return jdbc.query("SELECT * FROM main.transactions;", Mapper())
     }
 
     fun getAllTransactionsByDate(date: LocalDate): List<Transaction> {
         println(date)
         return jdbc.query(
-            "SELECT * FROM banking_transaction_api.transactions " +
+            "SELECT * FROM main.transactions " +
                     "WHERE bookingday = '${date}';",
             Mapper()
         )
@@ -64,7 +64,7 @@ class DatabaseProcessor(
     fun deleteWhereBookingdate(date: LocalDate) {
         println(date)
         jdbc.update(
-            "DELETE FROM banking_transaction_api.transactions " +
+            "DELETE FROM main.transactions " +
                     "WHERE bookingday = '${date}';"
         )
     }
@@ -77,7 +77,7 @@ class DatabaseProcessor(
 
     fun addTransaction(transaction: Transaction) {
         jdbc.update(
-            "INSERT INTO banking_transaction_api.transactions" +
+            "INSERT INTO main.transactions" +
                     "(descriptionorderaccount, " +
                     "ibanorderaccount, " +
                     "bicorderaccount, " +

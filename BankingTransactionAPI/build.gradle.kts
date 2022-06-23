@@ -29,6 +29,8 @@ dependencies {
     implementation("org.postgresql:postgresql:42.3.4")
     implementation("org.springframework.boot:spring-boot-starter-jdbc:2.7.0")
     implementation("org.slf4j:slf4j-api:1.7.36")
+    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
+
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

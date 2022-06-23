@@ -1,14 +1,17 @@
 app:
   db:
-    url: jdbc:postgresql://localhost:5432/postgres
-    user: diaryapi
-    password: D14rYA9iDb
+    url: jdbc:sqlite:/home/jobender/Documents/Coding/Banking-Transaction-Dashboard/sql.db
+    driverClassName: org.sqlite.JDBC
+    #transactiondb
+    user: sa
+    #T4nSa3t1oNd8
+    password: sa
     sql:
       files:
         setup: setup.sql
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    driverClassName: org.postgresql.Driver
+    url: jdbc:sqlite:/home/jobender/Documents/Coding/Banking-Transaction-Dashboard/sql.db
+    driverClassName: org.sqlite.JDBC
     type:
