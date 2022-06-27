@@ -7,6 +7,8 @@ import de.jonasbe.bankingtransactionapi.model.Transaction
 import de.jonasbe.bankingtransactionapi.model.TransactionDay
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import java.math.BigDecimal
+import java.time.LocalDate
 import java.util.*
 
 @RestController
@@ -24,29 +26,7 @@ class API(
         return allTransactions.sortedByDescending { it.bookingDay }
     }
 
-    @CrossOrigin(origins = ["*"])
-    @GetMapping("/dailyCreditBalance")
-    fun getDailyCreditBalance(): List<TransactionDay> {
-        /**
-          Get Credit Balance at day start {
 
-             beforeBooking = after booking with amount calculate to before booking
-
-             for (lastMonth)
-                 if (beforeBooking == lastMonth.afterBooking)
-                     return lastMonth.afterBooking
-        }
-         */
-        //TODO: implement the logic from th comment
-        var allTransactions = databaseProcessor.getAllTransactions().sortedBy { it.bookingDay }
-
-        val dailyCreditBalance: MutableList<TransactionDay> = mutableListOf()
-
-
-        println("/dailyCreditBalance")
-        println(dailyCreditBalance)
-        return dailyCreditBalance
-    }
 
 
     @CrossOrigin(origins = ["*"])
