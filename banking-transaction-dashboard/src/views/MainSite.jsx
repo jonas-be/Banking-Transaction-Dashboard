@@ -9,6 +9,8 @@ function MainSite() {
 
   const [transactions, setTransactions] = useState([])
   const [dailyTransactions, setDailyTransactions] = useState([])
+  const [uploadShown, setUploadShown] = useState(false)
+
 
   useEffect(() => {
     async function setUp() {
@@ -35,20 +37,23 @@ function MainSite() {
     return data;
   }
 
+  function onButtonClick() {
+    setUploadShown(!uploadShown)
+
+
+  }
+
   return (
     <>
-      <Header />
+      <Header onButtonClick={onButtonClick} />
 
-      <UploadPanel />
+      {uploadShown ? <UploadPanel /> : ""}
+
+    
 
       <ChartComponent transactions={dailyTransactions} />
       <DashboardOne transactions={transactions} />
       <Footer />
-
-
-
-
-
     </>
   )
 }
