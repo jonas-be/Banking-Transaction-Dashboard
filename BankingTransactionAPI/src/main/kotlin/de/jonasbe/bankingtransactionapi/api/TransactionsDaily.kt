@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.util.stream.Collectors
 
 @RestController
 @RequestMapping
@@ -21,26 +22,30 @@ class TransactionsDaily(
     @CrossOrigin(origins = ["*"])
     @GetMapping("/dailyCreditBalance")
     fun getDailyCreditBalance(): List<TransactionDay> {
-        /**
-        Get Credit Balance at day start {
-
-        beforeBooking = after booking with amount calculate to before booking
-
-        for (lastMonth)
-        if (beforeBooking == lastMonth.afterBooking)
-        return lastMonth.afterBooking
-        }
-         */
-        //TODO: implement the logic from th comment
         val allTransactions = databaseProcessor.getAllTransactions()
-
         val dailyCreditBalance: MutableList<TransactionDay> = mutableListOf()
 
+        val transactionDates = getTransactionDates(allTransactions)
 
-        println("/dailyCreditBalance")
-        println(allTransactions)
+        transactionDates[0].datesUntil(transactionDates.last())
+            .collect(Collectors.toList())
+            .forEach {
+                dailyCreditBalance.add(
+                    TransactionDay(it, BigDecimal.ZERO)
+                )
+            }
 
-        getCreditBalanceAtDayBefore(allTransactions[0].bookingDay, allTransactions)
+        val changeDays = getChangeDays(allTransactions)
+
+        var lastCreditBalance = BigDecimal.ZERO
+        for (transactionDay in dailyCreditBalance) {
+            val changeDay = changeDays.filter { it.date == transactionDay.date }
+            if (changeDay.size == 1) {
+                lastCreditBalance = changeDay[0].balance
+            }
+
+            transactionDay.balance = lastCreditBalance
+        }
 
         return dailyCreditBalance
     }
@@ -48,24 +53,35 @@ class TransactionsDaily(
 
     @CrossOrigin(origins = ["*"])
     @GetMapping("/test")
-    fun getTest() : BigDecimal {
+    fun getTest(): List<TransactionDay> {
 
-        val var1 = databaseProcessor.getAllTransactions()
+        val transactions = databaseProcessor.getAllTransactions()
+        val dates = getTransactionDates(transactions)
 
-        return getCreditBalanceAtDayBefore(var1[0].bookingDay, var1)
+        return getChangeDays(transactions)
     }
 
-//    fun getChangeDays(transactions: List<Transaction>): List<TransactionDay> {
-//        val toReturn : MutableList<TransactionDay> = mutableListOf()
-//        val dates = getTransactionDates(transactions)
-//
-//        for (i in 0..dates.size) {
-//            if (!(i < dates.size -1))
-//            val currentDay = getCreditBalanceAtDayBefore(dates[i +1], transactions)
-//        }
-//    }
+    fun getChangeDays(transactions: List<Transaction>): List<TransactionDay> {
+        val toReturn: MutableList<TransactionDay> = mutableListOf()
+        val dates = getTransactionDates(transactions)
 
-    fun getChangeAmountOfDay(date: LocalDate, transactions: List<Transaction>) : BigDecimal {
+        for (i in dates.indices) {
+            if (i < dates.size - 1) {
+                val currentDay = getCreditBalanceAtDayBefore(dates[i + 1], transactions)
+                toReturn.add(
+                    TransactionDay(dates[i], currentDay)
+                )
+            } else {
+                val lastDay = getCreditBalanceAtDayBefore(dates[i], transactions)
+                toReturn.add(
+                    TransactionDay(dates[i], lastDay.add(getChangeAmountOfDay(dates[i], transactions)))
+                )
+            }
+        }
+        return toReturn
+    }
+
+    fun getChangeAmountOfDay(date: LocalDate, transactions: List<Transaction>): BigDecimal {
         val transactionsOnThisDay = getTransactionsByDate(date, transactions)
         val changeAmount = BigDecimal.ZERO
         for (transaction in transactionsOnThisDay) {
@@ -96,7 +112,7 @@ class TransactionsDaily(
 
             for (transactionDayBefore in getTransactionsByDate(dayBefore, transactions)) {
                 val creditBalanceDayBefore = transactionDayBefore.creditBalanceAfterBooking
-                if (creditBalanceDayBefore == beforeTransaction) {
+                if (creditBalanceDayBefore.compareTo(beforeTransaction) == 0) {
                     return creditBalanceDayBefore
                 }
             }
