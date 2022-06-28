@@ -28,7 +28,7 @@ export default function ChartComponent({ transactions }) {
                 <YAxis style={{fontWeight: 600, fill: 'black'}} />
 
                 <Tooltip />
-                <Line type="monotone" dataKey="balance" stroke="rgb(125, 211, 252)" strokeWidth={6} activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="balance" stroke="rgb(59, 130, 246)" strokeWidth={5} activeDot={{ r: 8 }} isAnimationActive={true} />
             </LineChart>
         </ResponsiveContainer>
     );
