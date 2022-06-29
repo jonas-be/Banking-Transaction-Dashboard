@@ -36,7 +36,7 @@ class API(
     }
 
     @CrossOrigin(origins = ["*"])
-    @PostMapping("/dataState")
+    @GetMapping("/dataState")
     fun getDataState(): DataState {
         return DataState(transactionsDaily.getTransactionDates(getAllTransactions()))
     }

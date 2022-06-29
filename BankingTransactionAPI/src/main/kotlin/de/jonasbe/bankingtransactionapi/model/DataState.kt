@@ -13,6 +13,6 @@ data class DataState(
         if (dates.last() == LocalDate.now())
             "You are up to date!"
         else
-            "You missing transactions since ${dates.last()}"
+            "You are missing transactions since ${dates.last()}"
     )
 }
