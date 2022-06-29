@@ -2,7 +2,9 @@ package de.jonasbe.bankingtransactionapi.database
 
 import de.jonasbe.bankingtransactionapi.model.Transaction
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
@@ -19,7 +21,8 @@ private const val sqlDirectory = "sql"
 class DatabaseProcessor(
     @Value("\${spring.datasource.url}") val dbUrl: String,
     @Value("\${spring.datasource.driverClassName}") val driverClassName: String,
-    @Value("\${spring.sql.files.setup}") val setupFile: String
+    @Autowired
+    val applicationArguments: ApplicationArguments
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
     lateinit var dataSource: DataSource
@@ -33,7 +36,7 @@ class DatabaseProcessor(
     }
 
     fun createDataBaseFile() {
-        val basePath = File(this::class.java.protectionDomain.codeSource.location.toURI()).path
+        val basePath = File(applicationArguments.sourceArgs[0]).path
         val dbFile = File(basePath, "transactions.db")
         dbFilePath = dbFile.toString()
         if (dbFile.exists()) {
@@ -56,7 +59,30 @@ class DatabaseProcessor(
     }
 
     fun setUpSchemasAndTables() {
-        val sql = getSqlFromResources(setupFile)
+        val sql = "CREATE TABLE\n" +
+                "    IF NOT EXISTS\n" +
+                "    main.transactions(\n" +
+                "                       id    SERIAL PRIMARY KEY,\n" +
+                "                       descriptionOrderAccount VARCHAR,\n" +
+                "                       ibanOrderAccount VARCHAR,\n" +
+                "                       bicOrderAccount VARCHAR,\n" +
+                "                       bankNameOrderAccount VARCHAR,\n" +
+                "                       bookingDay DATE,\n" +
+                "                       valueDate DATE,\n" +
+                "                       paymentPartyName VARCHAR,\n" +
+                "                       paymentPartyIBAN VARCHAR,\n" +
+                "                       paymentPartyBIC VARCHAR,\n" +
+                "                       bookingText VARCHAR,\n" +
+                "                       usageText VARCHAR,\n" +
+                "                       amount NUMERIC,\n" +
+                "                       currency VARCHAR,\n" +
+                "                       creditBalanceAfterBooking NUMERIC,\n" +
+                "                       notice VARCHAR,\n" +
+                "                       category VARCHAR,\n" +
+                "                       taxRelevant VARCHAR,\n" +
+                "                       creditorID VARCHAR,\n" +
+                "                       mandateReference VARCHAR\n" +
+                ");"
         val result = jdbc.update(sql)
         logger.info("Updated database -> Code: $result")
     }
@@ -112,13 +138,5 @@ class DatabaseProcessor(
                     "mandatereference) " +
                     "VALUES (${transaction.getKeyValueString()});"
         )
-    }
-
-
-    private fun getSqlFromResources(fileName: String): String {
-        val res = javaClass.classLoader.getResource(sqlDirectory)
-        val file: File = Paths.get(res.toURI()).toFile()
-        val sqlFile = Path(file.absolutePath, fileName)
-        return Files.readString(sqlFile)
     }
 }
