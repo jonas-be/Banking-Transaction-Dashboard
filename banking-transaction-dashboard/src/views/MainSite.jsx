@@ -9,6 +9,8 @@ function MainSite() {
 
   const [transactions, setTransactions] = useState([])
   const [dailyTransactions, setDailyTransactions] = useState([])
+  const [balanceHistoryStats, setBalanceHistoryStats] = useState([])
+
   const [uploadShown, setUploadShown] = useState(false)
 
 
@@ -19,6 +21,9 @@ function MainSite() {
 
       const dailyTransactionsData = await fetchDailyTransactions()
       setDailyTransactions(dailyTransactionsData)
+      
+      const balanceHistoryStatsData = await fetchBalanceHistoryStats()
+      setBalanceHistoryStats(balanceHistoryStatsData)
     }
     setUp()
   }, [])
@@ -37,10 +42,16 @@ function MainSite() {
     return data;
   }
 
+  async function fetchBalanceHistoryStats() {
+    const res = await fetch('http://localhost:8080/balanceHistoryStats')
+    const data = await res.json()
+
+    return Promise.resolve(data);
+  }
+
+
   function onButtonClick() {
     setUploadShown(!uploadShown)
-
-
   }
 
   return (
@@ -49,10 +60,8 @@ function MainSite() {
 
       {uploadShown ? <UploadPanel /> : ""}
 
-    
-
       <ChartComponent transactions={dailyTransactions} />
-      <DashboardOne transactions={transactions} />
+      <DashboardOne transactions={transactions} balanceHistoryStats={balanceHistoryStats} />
       <Footer />
     </>
   )

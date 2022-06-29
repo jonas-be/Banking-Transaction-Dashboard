@@ -1,6 +1,7 @@
 package de.jonasbe.bankingtransactionapi.api
 
 import de.jonasbe.bankingtransactionapi.database.DatabaseProcessor
+import de.jonasbe.bankingtransactionapi.model.BalanceHistoryStats
 import de.jonasbe.bankingtransactionapi.model.CSVObject
 import de.jonasbe.bankingtransactionapi.model.Data
 import de.jonasbe.bankingtransactionapi.model.Transaction
@@ -15,7 +16,9 @@ import java.util.*
 @RequestMapping
 class API(
     @Autowired
-    val databaseProcessor: DatabaseProcessor
+    val databaseProcessor: DatabaseProcessor,
+    @Autowired
+    val transactionsDaily: TransactionsDaily
 ) {
 
     @CrossOrigin(origins = ["*"])
@@ -26,21 +29,14 @@ class API(
         return allTransactions.sortedByDescending { it.bookingDay }
     }
 
-
-
-
     @CrossOrigin(origins = ["*"])
-    @GetMapping("/data")
-    fun getData(): List<Data> {
-        val list: List<Data> = listOf(
-            Data(GregorianCalendar(2022, Calendar.JUNE, 1).time, Random().nextInt(100)),
-            Data(GregorianCalendar(2022, Calendar.JUNE, 2).time, Random().nextInt(100)),
-            Data(GregorianCalendar(2022, Calendar.JUNE, 3).time, Random().nextInt(100)),
-            Data(GregorianCalendar(2022, Calendar.JUNE, 4).time, Random().nextInt(100)),
-            Data(GregorianCalendar(2022, Calendar.JUNE, 5).time, Random().nextInt(100)),
-        )
+    @GetMapping("/balanceHistoryStats")
+    fun getBalanceHistoryStats(): BalanceHistoryStats {
+        val dailyTransactions = transactionsDaily.getDailyCreditBalance().sortedByDescending { it.date }
 
-        return list
+        val balanceHistoryStats: BalanceHistoryStats = BalanceHistoryStats(dailyTransactions)
+
+        return balanceHistoryStats
     }
 
     @CrossOrigin(origins = ["*"])

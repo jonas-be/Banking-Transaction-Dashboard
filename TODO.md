@@ -53,9 +53,9 @@
     - [ ] Welche Daten noch fehlen (z.B. "Es fehlen Daten von 15.02.2022 - 05.06.2022")
 - [ ] Aktueller Kontostand
 - [X] Graph mit dem täglichen Kontostand
-- [ ] Monatliche, wöchentliche und tägliche Änderung des Kontostandes
-    - [ ] in Prozent
-    - [ ] in Euro
+- [X] Monatliche, wöchentliche und tägliche Änderung des Kontostandes
+    - [X] in Prozent
+    - [X] in Euro
 - [X] Liste mit allen Transaktionen
 - [ ] (Je nach Zeit noch mehr statistische Features)
 
