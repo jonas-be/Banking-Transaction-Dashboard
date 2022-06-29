@@ -27,7 +27,10 @@ class TransactionsDaily(
 
         val transactionDates = getTransactionDates(allTransactions)
 
-        transactionDates[0].datesUntil(transactionDates.last())
+        if (transactionDates.size == 0)
+            return dailyCreditBalance
+
+        transactionDates[0].datesUntil(transactionDates.last().plusDays(1))
             .collect(Collectors.toList())
             .forEach {
                 dailyCreditBalance.add(
@@ -54,10 +57,7 @@ class TransactionsDaily(
     @CrossOrigin(origins = ["*"])
     @GetMapping("/changeDays")
     fun getChangeDays(): List<TransactionDay> {
-
         val transactions = databaseProcessor.getAllTransactions()
-        val dates = getTransactionDates(transactions)
-
         return getChangeDays(transactions)
     }
 
@@ -74,8 +74,10 @@ class TransactionsDaily(
             } else {
                 val lastDay = getCreditBalanceAtDayBefore(dates[i], transactions)
                 val changeAmountOfDay = getChangeAmountOfDay(dates[i], transactions)
+                val finalBalance = lastDay.add(changeAmountOfDay)
+                val date = dates[i]
                 toReturn.add(
-                    TransactionDay(dates[i], lastDay.add(changeAmountOfDay))
+                    TransactionDay(date, finalBalance)
                 )
             }
         }
@@ -84,9 +86,9 @@ class TransactionsDaily(
 
     fun getChangeAmountOfDay(date: LocalDate, transactions: List<Transaction>): BigDecimal {
         val transactionsOnThisDay = getTransactionsByDate(date, transactions)
-        val changeAmount = BigDecimal.ONE
+        var changeAmount = BigDecimal.ZERO
         for (transaction in transactionsOnThisDay) {
-            changeAmount.add(transaction.amount)
+            changeAmount = changeAmount.add(transaction.amount)
         }
         return changeAmount
     }

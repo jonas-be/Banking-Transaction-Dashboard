@@ -13,7 +13,7 @@ data class BalanceHistoryStats(
         balanceBeforeDay = if (dailyTransactions.size > 1) dailyTransactions[1] else TransactionDay(null, null),
         balanceBeforeWeek = if (dailyTransactions.size > 7) dailyTransactions[7] else TransactionDay(null, null),
         balanceBeforeMonth = if (dailyTransactions.size > 30) dailyTransactions[30] else TransactionDay(null, null),
-        balanceBeforeThreeMonth = if (dailyTransactions.size > 70) dailyTransactions[70] else TransactionDay(null, null), //TODO: 90!!!!
+        balanceBeforeThreeMonth = if (dailyTransactions.size > 90) dailyTransactions[90] else TransactionDay(null, null),
         balanceBeforeSixMonth = if (dailyTransactions.size > 180) dailyTransactions[180] else TransactionDay(null, null)
 
     )

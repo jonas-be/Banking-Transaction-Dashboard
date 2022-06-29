@@ -47,11 +47,11 @@
 
 # Was soll auf der Website dargestellt werden?
 
-- [ ] Datenstand
+- [X] Datenstand
     - [X] Upload Field
-    - [ ] Letzte Aktualisierung
-    - [ ] Welche Daten noch fehlen (z.B. "Es fehlen Daten von 15.02.2022 - 05.06.2022")
-- [ ] Aktueller Kontostand
+    - [X] Letzte Aktualisierung
+    - [X] Welche Daten noch fehlen (z.B. "Es fehlen Daten von 15.02.2022 - 05.06.2022")
+- [X] Aktueller Kontostand
 - [X] Graph mit dem täglichen Kontostand
 - [X] Monatliche, wöchentliche und tägliche Änderung des Kontostandes
     - [X] in Prozent

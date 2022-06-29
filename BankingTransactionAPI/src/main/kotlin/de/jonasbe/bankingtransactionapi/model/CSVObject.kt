@@ -57,7 +57,7 @@ class CSVObject(fileContent: String) {
         val list: MutableList<LocalDate> = mutableListOf()
         for (transaction in transactions) {
             if (!list.contains(transaction.bookingDay)) {
-                list.add(transaction.bookingDay!!)
+                list.add(transaction.bookingDay)
             }
         }
         return list

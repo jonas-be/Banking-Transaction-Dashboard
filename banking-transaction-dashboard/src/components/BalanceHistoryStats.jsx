@@ -1,4 +1,5 @@
 import { FaArrowDown, FaArrowUp, FaMinus } from "react-icons/fa"
+import Loading from "./Loading"
 
 function BalanceHistoryStats({ balanceHistoryStats }) {
 
@@ -23,7 +24,7 @@ function BalanceHistoryStats({ balanceHistoryStats }) {
         )
     else
         return (
-            <div>Loading...</div>
+            <Loading />
         )
 }
 
@@ -44,29 +45,27 @@ function HistroyElement({ text, data, current }) {
     function getSortSign() {
         if (percantage < 0) {
             return (
-                <FaArrowDown style={{ padding: "0 0 .2rem", textAlign: "center", fontSize: "1.8em", color: "rgb(239, 68, 68)", cursor: 'pointer' }} />
+                <FaArrowDown style={{ padding: ".3rem", textAlign: "center", fontSize: "1.8em", color: "rgb(239, 68, 68)", cursor: 'pointer' }} />
             )
         }
-        if (percantage == 0) {
+        if (percantage === 0) {
             return (
-                <FaMinus style={{ padding: ".3rem", textAlign: "center", fontSize: "1.8em", color: "rgb(34, 197, 94)", cursor: 'pointer' }} />
+                <FaMinus style={{ padding: ".3rem", textAlign: "center", fontSize: "1.8rem", color: "rgb(34, 197, 94)", cursor: 'pointer' }} />
             )
         }
         return (
             <FaArrowUp style={{ padding: ".3rem", textAlign: "center", fontSize: "1.8em", color: "rgb(34, 197, 94)", cursor: 'pointer' }} />
-
         )
     }
-
 
 
     return (
         <>
             <div className="flex justify-items-start py-8">
 
-                <div className="flex items-center align-middle w-32 px-1.5 rounded-md bg-blue-200">
+                <div className="flex items-center align-middle w-32 px-1.5 rounded-md dbg-slate-200">
                     {getSortSign()}
-                    <h2 className="text-sm font-semibold text-blue-600 ">{percantage} %</h2>
+                    <h2 className="self-stretch grow text-right text-lg font-semibold text-blue-600 ">{percantage} %</h2>
                 </div>
 
                 <h2 className="text-left text-xl font-medium text-zinc-400 px-4">{text}</h2>
