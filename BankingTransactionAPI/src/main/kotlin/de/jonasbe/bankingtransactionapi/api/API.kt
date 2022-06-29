@@ -3,7 +3,7 @@ package de.jonasbe.bankingtransactionapi.api
 import de.jonasbe.bankingtransactionapi.database.DatabaseProcessor
 import de.jonasbe.bankingtransactionapi.model.BalanceHistoryStats
 import de.jonasbe.bankingtransactionapi.model.CSVObject
-import de.jonasbe.bankingtransactionapi.model.Data
+import de.jonasbe.bankingtransactionapi.model.DataState
 import de.jonasbe.bankingtransactionapi.model.Transaction
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -33,6 +33,12 @@ class API(
         val balanceHistoryStats: BalanceHistoryStats = BalanceHistoryStats(dailyTransactions)
 
         return balanceHistoryStats
+    }
+
+    @CrossOrigin(origins = ["*"])
+    @PostMapping("/dataState")
+    fun getDataState(): DataState {
+        return DataState(transactionsDaily.getTransactionDates(getAllTransactions()))
     }
 
     @CrossOrigin(origins = ["*"])
