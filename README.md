@@ -1,18 +1,42 @@
-# DiaryAPI
+# Banking Transaction Dashboard
 
-## SetUP
+## Requirements
+ - Java 17 or higher
+ - Browser with JavaScript enabled
 
-### Postgres on Docker
+## How to Use
 
- - Get Postgres Image: `docker pull postgres`
-   - Check if Postgres image is stored on your computer: `docker images`
+### Start API
+First start the API `Banking-Transaction-Dashboard/production/BankingTransactionAPI-0.0.1-SNAPSHOT.jar` with the following command:
+
+`java -jar BankingTransactionAPI-0.0.1-SNAPSHOT.jar "."`
+
+Instead of the `"."` you can insert a path where the database should be saved.
+
+### Open the Frontend
+Go to `Banking-Transaction-Dashboard/production/frontend` and open the `index.html` (You can do this by double-clicking).
+
+### Upload the CSV
+You can toggle the Upload context by pressing the `Upload` button.
+Select a CSV file in the `Choose File` field or drag and drop it in this field.
+Now press upload and the site will reload and show the graph and transaction infos.
 
 
-TODO: Fix password for DB (it is the old at the moment) 
- - Run the pulled Docker Image:\
-   - `docker run --name postres-db-diary-api -e POSTGRES_USER=diaryapi -e POSTGRES_PASSWORD=D14rYA9iDb -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres`
+## Tech-Stack
 
-   - `docker run --name postgres-db-transaction-api -e POSTGRES_USER=transactionapi -e POSTGRES_PASSWORD=Tr4N2aCT10nDb -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres`
-   - Check if it's running: `docker ps`
+### Frontend
 
+- JavaScript
+- React
+- Recharts
+- TailwindCss
+
+### Backend
+
+- Kotlin
+- Spring Boot
+
+### DataBase
+
+- SQLLite
 
