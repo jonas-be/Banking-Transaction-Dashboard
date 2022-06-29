@@ -73,8 +73,9 @@ class TransactionsDaily(
                 )
             } else {
                 val lastDay = getCreditBalanceAtDayBefore(dates[i], transactions)
+                val changeAmountOfDay = getChangeAmountOfDay(dates[i], transactions)
                 toReturn.add(
-                    TransactionDay(dates[i], lastDay.add(getChangeAmountOfDay(dates[i], transactions)))
+                    TransactionDay(dates[i], lastDay.add(changeAmountOfDay))
                 )
             }
         }
@@ -83,7 +84,7 @@ class TransactionsDaily(
 
     fun getChangeAmountOfDay(date: LocalDate, transactions: List<Transaction>): BigDecimal {
         val transactionsOnThisDay = getTransactionsByDate(date, transactions)
-        val changeAmount = BigDecimal.ZERO
+        val changeAmount = BigDecimal.ONE
         for (transaction in transactionsOnThisDay) {
             changeAmount.add(transaction.amount)
         }
