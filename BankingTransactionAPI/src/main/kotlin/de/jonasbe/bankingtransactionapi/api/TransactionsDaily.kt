@@ -52,8 +52,8 @@ class TransactionsDaily(
 
 
     @CrossOrigin(origins = ["*"])
-    @GetMapping("/test")
-    fun getTest(): List<TransactionDay> {
+    @GetMapping("/changeDays")
+    fun getChangeDays(): List<TransactionDay> {
 
         val transactions = databaseProcessor.getAllTransactions()
         val dates = getTransactionDates(transactions)

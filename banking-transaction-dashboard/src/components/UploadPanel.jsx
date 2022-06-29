@@ -19,9 +19,6 @@ function UploadPanel() {
       return;
     }
 
-    console.log("!!!");
-    console.log(file);
-
 
     const reader = new FileReader()
     reader.onload = handleFileLoad;
@@ -33,7 +30,6 @@ function UploadPanel() {
       method: "POST",
       body: event.target.result,
     }).then((response) => {
-      console.log(response);
 
       if (response.status === 200) {
         this.uploadStatus = 'Success';

@@ -6,9 +6,6 @@ export default function ChartComponent({ transactions }) {
 
     const data = transactions.reverse()
 
-    console.log(data);
-
-
     return (
 
         <ResponsiveContainer width="100%" aspect={3} className="bg-">

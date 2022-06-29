@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { FaSortAlphaDown, FaSortAmountDown, FaSortDown, FaSortUp, FaTimes } from "react-icons/fa"
+import { FaSortDown, FaSortUp } from "react-icons/fa"
 
 
 function Transaction({ transaction }) {

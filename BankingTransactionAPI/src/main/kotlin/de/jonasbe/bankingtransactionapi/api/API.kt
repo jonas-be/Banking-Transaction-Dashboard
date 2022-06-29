@@ -5,12 +5,8 @@ import de.jonasbe.bankingtransactionapi.model.BalanceHistoryStats
 import de.jonasbe.bankingtransactionapi.model.CSVObject
 import de.jonasbe.bankingtransactionapi.model.Data
 import de.jonasbe.bankingtransactionapi.model.Transaction
-import de.jonasbe.bankingtransactionapi.model.TransactionDay
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import java.math.BigDecimal
-import java.time.LocalDate
-import java.util.*
 
 @RestController
 @RequestMapping
