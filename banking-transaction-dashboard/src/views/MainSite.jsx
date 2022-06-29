@@ -24,6 +24,7 @@ function MainSite() {
       
       const balanceHistoryStatsData = await fetchBalanceHistoryStats()
       setBalanceHistoryStats(balanceHistoryStatsData)
+
     }
     setUp()
   }, [])
@@ -31,6 +32,10 @@ function MainSite() {
   async function fetchTransactions() {
     const res = await fetch('http://localhost:8080/all')
     const data = await res.json()
+
+    if (data.length === 0) {
+      setUploadShown(true)
+    }
 
     return data;
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from './Button'
 import Upload from './Upload'
+import UploadDataState from './UploadDataState';
 
 function UploadPanel() {
 
@@ -32,9 +33,11 @@ function UploadPanel() {
     }).then((response) => {
 
       if (response.status === 200) {
-        this.uploadStatus = 'Success';
-        this.uploadStyle = 'green';
+        window.location.reload(false);
+      } else {
+        alert(response)
       }
+
     });
   }
 
@@ -44,6 +47,8 @@ function UploadPanel() {
       rounded-3xl bg-white shadow-xl flex flex-col '>
         <h1 className='text-2xl font-bold'>File Upload</h1>
         <br />
+
+        <UploadDataState />
 
         <form id="uploadform" method="post" enctype="multipart/form-data" onSubmit={onSubmit}>
 
