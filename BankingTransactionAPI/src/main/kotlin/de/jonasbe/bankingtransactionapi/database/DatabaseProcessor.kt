@@ -9,13 +9,33 @@ import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
 import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
 import java.time.LocalDate
 import javax.sql.DataSource
-import kotlin.io.path.Path
 
-private const val sqlDirectory = "sql"
+private const val CREATE_TABLE_STATEMENT = "CREATE TABLE\n" +
+        "    IF NOT EXISTS\n" +
+        "    main.transactions(\n" +
+        "                       id    SERIAL PRIMARY KEY,\n" +
+        "                       descriptionOrderAccount VARCHAR,\n" +
+        "                       ibanOrderAccount VARCHAR,\n" +
+        "                       bicOrderAccount VARCHAR,\n" +
+        "                       bankNameOrderAccount VARCHAR,\n" +
+        "                       bookingDay DATE,\n" +
+        "                       valueDate DATE,\n" +
+        "                       paymentPartyName VARCHAR,\n" +
+        "                       paymentPartyIBAN VARCHAR,\n" +
+        "                       paymentPartyBIC VARCHAR,\n" +
+        "                       bookingText VARCHAR,\n" +
+        "                       usageText VARCHAR,\n" +
+        "                       amount NUMERIC,\n" +
+        "                       currency VARCHAR,\n" +
+        "                       creditBalanceAfterBooking NUMERIC,\n" +
+        "                       notice VARCHAR,\n" +
+        "                       category VARCHAR,\n" +
+        "                       taxRelevant VARCHAR,\n" +
+        "                       creditorID VARCHAR,\n" +
+        "                       mandateReference VARCHAR\n" +
+        ");"
 
 @Component
 class DatabaseProcessor(
@@ -59,30 +79,7 @@ class DatabaseProcessor(
     }
 
     fun setUpSchemasAndTables() {
-        val sql = "CREATE TABLE\n" +
-                "    IF NOT EXISTS\n" +
-                "    main.transactions(\n" +
-                "                       id    SERIAL PRIMARY KEY,\n" +
-                "                       descriptionOrderAccount VARCHAR,\n" +
-                "                       ibanOrderAccount VARCHAR,\n" +
-                "                       bicOrderAccount VARCHAR,\n" +
-                "                       bankNameOrderAccount VARCHAR,\n" +
-                "                       bookingDay DATE,\n" +
-                "                       valueDate DATE,\n" +
-                "                       paymentPartyName VARCHAR,\n" +
-                "                       paymentPartyIBAN VARCHAR,\n" +
-                "                       paymentPartyBIC VARCHAR,\n" +
-                "                       bookingText VARCHAR,\n" +
-                "                       usageText VARCHAR,\n" +
-                "                       amount NUMERIC,\n" +
-                "                       currency VARCHAR,\n" +
-                "                       creditBalanceAfterBooking NUMERIC,\n" +
-                "                       notice VARCHAR,\n" +
-                "                       category VARCHAR,\n" +
-                "                       taxRelevant VARCHAR,\n" +
-                "                       creditorID VARCHAR,\n" +
-                "                       mandateReference VARCHAR\n" +
-                ");"
+        val sql = CREATE_TABLE_STATEMENT
         val result = jdbc.update(sql)
         logger.info("Updated database -> Code: $result")
     }

@@ -28,10 +28,7 @@ class API(
     @GetMapping("/balanceHistoryStats")
     fun getBalanceHistoryStats(): BalanceHistoryStats {
         val dailyTransactions = transactionsDaily.getDailyCreditBalance().sortedByDescending { it.date }
-
-        val balanceHistoryStats: BalanceHistoryStats = BalanceHistoryStats(dailyTransactions)
-
-        return balanceHistoryStats
+        return BalanceHistoryStats(dailyTransactions)
     }
 
     @CrossOrigin(origins = ["*"])

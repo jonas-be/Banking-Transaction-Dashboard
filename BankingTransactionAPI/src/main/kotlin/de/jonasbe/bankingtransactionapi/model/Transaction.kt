@@ -72,9 +72,7 @@ data class Transaction(
         taxRelevant = taxRelevant,
         creditorID = creditorID,
         manLocalDateReference = manLocalDateReference
-    ) {
-    }
-
+    )
 
     fun getKeyValueString(): String {
         return "'$descriptionOrderAccount', " +

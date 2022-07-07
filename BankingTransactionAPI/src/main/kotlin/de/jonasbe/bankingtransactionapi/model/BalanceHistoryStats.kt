@@ -15,7 +15,5 @@ data class BalanceHistoryStats(
         balanceBeforeMonth = if (dailyTransactions.size > 30) dailyTransactions[30] else TransactionDay(null, null),
         balanceBeforeThreeMonth = if (dailyTransactions.size > 90) dailyTransactions[90] else TransactionDay(null, null),
         balanceBeforeSixMonth = if (dailyTransactions.size > 180) dailyTransactions[180] else TransactionDay(null, null)
-
     )
-
 }

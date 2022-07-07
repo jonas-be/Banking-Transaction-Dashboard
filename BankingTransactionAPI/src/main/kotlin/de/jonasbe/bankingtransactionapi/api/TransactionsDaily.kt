@@ -24,12 +24,11 @@ class TransactionsDaily(
     fun getDailyCreditBalance(): List<TransactionDay> {
         val allTransactions = databaseProcessor.getAllTransactions()
         val dailyCreditBalance: MutableList<TransactionDay> = mutableListOf()
-
         val transactionDates = getTransactionDates(allTransactions)
 
-        if (transactionDates.size == 0)
+        if (transactionDates.isEmpty()) {
             return dailyCreditBalance
-
+        }
         transactionDates[0].datesUntil(transactionDates.last().plusDays(1))
             .collect(Collectors.toList())
             .forEach {
@@ -37,19 +36,16 @@ class TransactionsDaily(
                     TransactionDay(it, BigDecimal.ZERO)
                 )
             }
-
         val changeDays = getChangeDays(allTransactions)
-
         var lastCreditBalance = BigDecimal.ZERO
+
         for (transactionDay in dailyCreditBalance) {
             val changeDay = changeDays.filter { it.date == transactionDay.date }
             if (changeDay.size == 1) {
                 lastCreditBalance = changeDay[0].balance
             }
-
             transactionDay.balance = lastCreditBalance
         }
-
         return dailyCreditBalance
     }
 
@@ -120,7 +116,6 @@ class TransactionsDaily(
                 }
             }
         }
-
         throw java.lang.IllegalStateException("Some data is wrong. Can't calculate creditBalance of the day before.")
     }
 
@@ -146,5 +141,4 @@ class TransactionsDaily(
         }
         return toReturn
     }
-
 }

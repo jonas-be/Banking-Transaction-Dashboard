@@ -2,7 +2,6 @@ package de.jonasbe.bankingtransactionapi.model
 
 import de.jonasbe.bankingtransactionapi.database.DatabaseProcessor
 import java.time.LocalDate
-import java.util.*
 
 class CSVObject(fileContent: String) {
     val transactions: List<Transaction> = getTransactionsByCSV(fileContent)
