@@ -20,8 +20,7 @@ class API(
     @CrossOrigin(origins = ["*"])
     @GetMapping("/all")
     fun getAllTransactions(): List<Transaction> {
-        var allTransactions = databaseProcessor.getAllTransactions()
-        println("/all")
+        val allTransactions = databaseProcessor.getAllTransactions()
         return allTransactions.sortedByDescending { it.bookingDay }
     }
 
@@ -44,9 +43,6 @@ class API(
     @CrossOrigin(origins = ["*"])
     @PostMapping("/upload")
     fun uploadCSV(@RequestBody fileContent: String) {
-        println("uploaded: \n $fileContent")
-        println("Start parsing...")
-
         val csvData = CSVObject(fileContent)
         csvData.importToDataBase(databaseProcessor)
     }

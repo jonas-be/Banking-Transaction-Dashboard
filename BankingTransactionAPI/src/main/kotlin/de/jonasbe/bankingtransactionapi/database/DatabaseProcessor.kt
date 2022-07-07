@@ -92,7 +92,6 @@ class DatabaseProcessor(
     }
 
     fun getAllTransactionsByDate(date: LocalDate): List<Transaction> {
-        println(date)
         return jdbc.query(
             "SELECT * FROM main.transactions " +
                     "WHERE bookingday = '${date}';",
@@ -101,7 +100,6 @@ class DatabaseProcessor(
     }
 
     fun deleteWhereBookingdate(date: LocalDate) {
-        println(date)
         jdbc.update(
             "DELETE FROM main.transactions " +
                     "WHERE bookingday = '${date}';"
